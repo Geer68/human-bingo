@@ -15,7 +15,7 @@ router.get("/getEvent", authenticateToken, getEvent);
 router.get("/getAnswers", authenticateToken, getAnswer);
 
 router.get("/", (req, res) => {
-  res.send("puerto:", port);
+  res.status(200).send(`puerto: ${port}`);
 });
 
 export default router;
