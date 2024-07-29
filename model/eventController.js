@@ -37,7 +37,7 @@ export async function insertEvent(req, res) {
 }
 
 export async function getEvent(req, res) {
-  const { eventID } = req.params;
+  const eventID = req.query.eventID;
 
   try {
     const eventData = await getEventByID(eventID);
