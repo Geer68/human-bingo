@@ -74,5 +74,9 @@ export async function getEventByID(eventID) {
     return null;
   }
 
-  return { size: eventData.size, questions: await selectQuestions(eventData) };
+  return {
+    size: eventData.size,
+    questions: await selectQuestions(eventData),
+    title: eventData.title,
+  };
 }
