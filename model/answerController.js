@@ -5,12 +5,12 @@ import {
 import { existingEventByID } from "../services/eventsService.js";
 
 export async function insertAnswer(req, res) {
-  const { nombre, apellido, momentoRespuesta, answers } = req.body.answer;
+  const { nombre, email, title, momentoRespuesta, answers } = req.body.answer;
   const { idEvento } = req.body;
 
   const answer = {
     nombre: nombre || "",
-    apellido: apellido || "",
+    email: email || "",
     momentoRespuesta: momentoRespuesta || "",
     answers: answers || [],
   };
