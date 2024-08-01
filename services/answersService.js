@@ -1,6 +1,6 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../config/index.js";
-import { existingEventByID } from "./eventsService.js";
+import { existingEventByID, getEventIDByURL } from "./eventsService.js";
 
 export async function insertAnswerDB(idEvento, answer) {
   const newAnswer = {
@@ -9,7 +9,8 @@ export async function insertAnswerDB(idEvento, answer) {
   };
 
   try {
-    const eventExists = await existingEventByID(idEvento);
+    const eventID = await getEventIDByURL(idEvento);
+    const eventExists = await existingEventByID(eventID);
 
     if (eventExists == null) {
       console.error("Event not found: ", idEvento);
