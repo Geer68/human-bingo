@@ -66,9 +66,11 @@ export async function getEventByID(eventID) {
   const eventRef = collection(db, "events");
   const querySnapshot = await getDocs(eventRef);
 
+  const idEvento = getEventIDByURL(eventID);
+
   let eventData = null;
   for (const doc of querySnapshot.docs) {
-    if (doc.id === eventID) {
+    if (doc.id === idEvento) {
       console.log("Document found with ID: ", doc.id);
       eventData = doc.data();
       break;
@@ -84,4 +86,18 @@ export async function getEventByID(eventID) {
     questions: await selectQuestions(eventData),
     title: eventData.title,
   };
+}
+
+export async function getEventIDByURL(url) {
+  const eventRef = collection(db, "events");
+  const querySnapshot = await getDocs(eventRef);
+
+  for (const doc of querySnapshot.docs) {
+    if (doc.data().url === url) {
+      console.log("Document found with URL: ", doc.id);
+      return doc.id;
+    }
+  }
+
+  return null;
 }
