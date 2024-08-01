@@ -66,7 +66,7 @@ export async function getEventByID(eventID) {
   const eventRef = collection(db, "events");
   const querySnapshot = await getDocs(eventRef);
 
-  const idEvento = getEventIDByURL(eventID);
+  const idEvento = await getEventIDByURL(eventID);
 
   let eventData = null;
   for (const doc of querySnapshot.docs) {
