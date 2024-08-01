@@ -8,6 +8,7 @@ export async function insertEventDB(event) {
   const newEvent = {
     title: title || "",
     size: size || 0,
+    url: title.replace(/\s+/g, "-").toLowerCase(),
     randomQuestions: randomQuestions || [],
     sponsorQuestions: sponsorQuestions || [],
   };
@@ -21,7 +22,11 @@ export async function insertEventDB(event) {
       const docRef = await addDoc(collection(db, "events"), newEvent);
       console.log("New event written with ID: ", docRef.id);
 
-      return { msg: "Nuevo evento insertado", id: docRef.id };
+      return {
+        msg: "Nuevo evento insertado",
+        id: docRef.id,
+        url: newEvent.url,
+      };
     }
   } catch (e) {
     console.error("Error adding document: ", e);

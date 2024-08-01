@@ -25,9 +25,10 @@ export async function insertEvent(req, res) {
     } else {
       const docRef = await insertEventDB(event);
 
-      res.json({
+      res.status(201).json({
         msg: `Nuevo evento creado para: ${title}`,
         id: docRef.id,
+        url: docRef.url,
       });
     }
   } catch (e) {
