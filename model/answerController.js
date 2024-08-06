@@ -2,6 +2,7 @@ import {
   getAnswersByEventID,
   insertAnswerDB,
 } from "../services/answersService.js";
+import { sendEmailToAddress } from "../services/emailService.js";
 import { existingEventByID } from "../services/eventsService.js";
 
 export async function insertAnswer(req, res) {
@@ -17,6 +18,7 @@ export async function insertAnswer(req, res) {
 
   try {
     const result = await insertAnswerDB(idEvento, answer);
+    const email = await sendEmailToAddress(idEvento, answer, answer.email);
 
     if (result.error) {
       res.status(404).json({ error: result.error });
