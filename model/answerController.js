@@ -18,7 +18,12 @@ export async function insertAnswer(req, res) {
 
   try {
     const result = await insertAnswerDB(idEvento, answer);
-    const email = await sendEmailToAddress(idEvento, answer, answer.email);
+    const email = await sendEmailToAddress(
+      idEvento,
+      answer,
+      "nerdconfdev@gmail.com",
+      "noreply@nerdconf.com"
+    );
 
     if (result.error) {
       res.status(404).json({ error: result.error });

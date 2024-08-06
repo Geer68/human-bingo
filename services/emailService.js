@@ -94,8 +94,11 @@ export const sendEmailToAddress = async (
   );
 
   try {
+    console.log("Email sent to: ", toAddress);
+    console.log("Email sent from: ", fromAddress);
     return await sesClient.send(sendEmailCommand);
   } catch (caught) {
+    console.error("Error sending email: ", caught);
     if (caught instanceof Error && caught.name === "MessageRejected") {
       /** @type { import('@aws-sdk/client-ses').MessageRejected} */
       const messageRejectedError = caught;
