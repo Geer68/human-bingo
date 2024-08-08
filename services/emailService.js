@@ -1,38 +1,36 @@
 import { SendEmailCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "../config/ses.js";
 
-const getSocialMediaIcon = (type) => {
-  switch (type) {
-    case "twitter":
-      return "";
-    case "instagram":
-      return '<img src="https://www.nerdconf.com/logos/instagram.svg" alt="Instagram" style="width:24px; height:24px; filter: invert(100%);"/>';
-    case "facebook":
-      return '<img src="https://www.nerdconf.com/logos/facebook.svg" alt="Facebook" style="width:24px; height:24px;"/>';
-    default:
-      return "";
+function getSocialMediaResponse(user) {
+  if (user.ig) {
+    return "ig.png";
+  } else if (user.facebook) {
+    return "facebook.png";
+  } else if (user.twitter) {
+    return "x.png";
+  } else {
+    return "vacaGris.png";
   }
-};
+}
 
 const renderUserContent = (user) => {
   if (typeof user === "object" && Object.keys(user).length > 0) {
-    let socialType = "";
     let socialText = "";
 
     if (user.twitter) {
-      socialType = "twitter";
       socialText = user.twitter;
-    } else if (user.instagram) {
-      socialType = "instagram";
-      socialText = user.instagram;
+    } else if (user.ig) {
+      socialText = user.ig;
     } else if (user.facebook) {
-      socialType = "facebook";
       socialText = user.facebook;
+    } else {
+      socialText = "No respondida";
     }
 
-    return `<p style="color:#fff;">${`@${socialText}` || "No respondida"}</p>`;
+    return `<p style="color: #fff; padding: 0; margin: 0;">${
+      `@${socialText}` || "No respondida"
+    }</p>`;
   }
-  return "<span style='color: #fff;'>No respondida</span>";
 };
 
 const createSendEmailCommand = (subject, body, toAddress, fromAddress) => {
@@ -71,10 +69,11 @@ const createSendEmailCommand = (subject, body, toAddress, fromAddress) => {
                   ${body.answers
                     .map((answer) => {
                       const userContent = renderUserContent(answer.user);
-                      return `<div style="color:#fff; padding:0px 24px 24px 24px;">
-                                <p style="color:#fff; margin-right: 8px;">${answer.pregunta}:</p>
-                                  <div style="display: flex; align-items: center; ">
-                                    <img src="https://www.nerdconf.com/logos/ig.png" alt="Instagram" style="width:24px; height:24px; filter: invert(100%);"/>
+                      const icon = getSocialMediaResponse(answer.user);
+                      return `<div style="color:#fff; padding:0px 15px 24px 24px;">
+                                <p style="color:#fff; margin-right: 8px; margin-bottom: 8px">${answer.pregunta}</p>
+                                  <div style="display: flex; align-items: center; margin-left: 5px;">
+                                    <img src="https://www.nerdconf.com/logos/${icon}" alt="${icon}" style="width: 18px; height: 18px; margin-right: 2px;"/>
                                     ${userContent}
                                   </div>
                               </div>
