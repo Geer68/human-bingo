@@ -21,7 +21,7 @@ export async function insertAnswer(req, res) {
     const email = await sendEmailToAddress(
       idEvento,
       answer,
-      "nerdconfdev@gmail.com",
+      answer.email,
       "noreply@nerdconf.com"
     );
 
