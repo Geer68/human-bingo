@@ -32,7 +32,7 @@ const renderUserContent = (user) => {
     }
 
     return `<p style="color: #fff; padding: 0; margin: 0;">${
-      `@${socialText}` || "No respondida"
+      `${socialText}` || "No respondida"
     }</p>`;
   } else {
     return `<p style="color: #fff; padding: 0; margin: 0;"> No respondida</p>`;
