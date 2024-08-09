@@ -4,10 +4,12 @@ import { sesClient } from "../config/ses.js";
 function getSocialMediaResponse(user) {
   if (user.ig) {
     return "ig.png";
-  } else if (user.facebook) {
-    return "facebook.png";
+  } else if (user.telegram) {
+    return "telegram.png";
   } else if (user.twitter) {
     return "x.png";
+  } else if (user.linkedin) {
+    return "linkedin.png";
   } else {
     return "vacaGris.png";
   }
@@ -21,8 +23,10 @@ const renderUserContent = (user) => {
       socialText = user.twitter;
     } else if (user.ig) {
       socialText = user.ig;
-    } else if (user.facebook) {
-      socialText = user.facebook;
+    } else if (user.telegram) {
+      socialText = user.telegram;
+    } else if (user.linkedin) {
+      socialText = user.linkedin;
     } else {
       socialText = "No respondida";
     }
@@ -73,16 +77,21 @@ const createSendEmailCommand = (subject, body, toAddress, fromAddress) => {
                       />
                     </a>
                   </div>
+                  <div style="padding:0px 15px 4px 24px; color:#fff;">
+                   <p style="margin-bottom: 1px;">Hola nerd,</p>
+                   <p style="margin-bottom: 5px;">¡Gracias por participar en el Nerdworking de NERDOCONF!</p>
+                   <p style="font-weight: bold;">Mira toda la gente que conociste:</p>
+                  </div>
                   ${body.answers
                     .map((answer) => {
                       const userContent = renderUserContent(answer.user);
                       const icon = getSocialMediaResponse(answer.user);
                       return `<div style="color:#fff; padding:0px 15px 24px 24px;">
                                 <p style="color:#fff; margin-right: 8px; margin-bottom: 8px">${answer.pregunta}</p>
-                                  <div style="display: flex; align-items: center; margin-left: 5px;">
-                                    <img src="https://www.nerdconf.com/logos/${icon}" alt="${icon}" style="width: 18px; height: 18px; margin-right: 2px;"/>
-                                    ${userContent}
-                                  </div>
+                                <div style="display: flex; align-items: center; margin-left: 5px;">
+                                  <img src="https://www.nerdconf.com/logos/${icon}" alt="${icon}" style="width: 18px; height: 18px; margin-right: 2px;"/>
+                                  <span>${userContent}</span>
+                                </div>
                               </div>
                             `;
                     })

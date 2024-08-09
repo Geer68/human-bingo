@@ -18,12 +18,8 @@ export async function insertAnswer(req, res) {
     };
 
     const result = await insertAnswerDB(idEvento, answer);
-    await sendEmailToAddress(
-      idEvento,
-      answer,
-      answer.email,
-      "noreply@nerdconf.com"
-    );
+    const subject = "NERDCONF Nerdworking - " + idEvento;
+    await sendEmailToAddress(subject, answer, answer.email);
 
     if (result.error) {
       res.status(404).json({ error: result.error });
