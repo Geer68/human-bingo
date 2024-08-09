@@ -79,7 +79,7 @@ const createSendEmailCommand = (subject, body, toAddress, fromAddress) => {
                   </div>
                   <div style="padding:0px 15px 4px 24px; color:#fff;">
                    <p style="margin-bottom: 1px;">Hola nerd,</p>
-                   <p style="margin-bottom: 5px;">¡Gracias por participar en el Nerdworking de NERDOCONF!</p>
+                   <p style="margin-bottom: 5px;">¡Gracias por participar en el Nerdworking de NERDCONF!</p>
                    <p style="font-weight: bold;">Mira toda la gente que conociste:</p>
                   </div>
                   ${body.answers
