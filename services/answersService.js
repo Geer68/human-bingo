@@ -17,7 +17,6 @@ export async function insertAnswerDB(idEvento, answer) {
       return { error: "Event not found" };
     } else {
       const docRef = await addDoc(collection(db, "answers"), newAnswer);
-      console.log("New answer written with ID: ", docRef.id);
 
       return {
         msg: `Insertada respuesta evento: ${newAnswer.id}`,
@@ -32,7 +31,6 @@ export async function insertAnswerDB(idEvento, answer) {
 
 export async function getAnswersByEventID(eventID) {
   try {
-    console.log("Retrieving answers for event: ", eventID);
     const answerRef = collection(db, "answers");
     const querySnapshot = await getDocs(answerRef);
     const answers = [];

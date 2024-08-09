@@ -30,10 +30,17 @@ const renderUserContent = (user) => {
     return `<p style="color: #fff; padding: 0; margin: 0;">${
       `@${socialText}` || "No respondida"
     }</p>`;
+  } else {
+    return `<p style="color: #fff; padding: 0; margin: 0;"> No respondida</p>`;
   }
 };
 
 const createSendEmailCommand = (subject, body, toAddress, fromAddress) => {
+  const title = subject
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
   const mensaje = `
     <!doctype html>
     <html>
@@ -108,7 +115,7 @@ const createSendEmailCommand = (subject, body, toAddress, fromAddress) => {
       },
       Subject: {
         Charset: "UTF-8",
-        Data: subject,
+        Data: title,
       },
     },
     Source: fromAddress,
@@ -130,8 +137,6 @@ export const sendEmailToAddress = async (
   );
 
   try {
-    console.log("Email sent to: ", toAddress);
-    console.log("Email sent from: ", fromAddress);
     return await sesClient.send(sendEmailCommand);
   } catch (caught) {
     console.error("Error sending email: ", caught);

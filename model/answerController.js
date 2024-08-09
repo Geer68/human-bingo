@@ -6,19 +6,19 @@ import { sendEmailToAddress } from "../services/emailService.js";
 import { existingEventByID } from "../services/eventsService.js";
 
 export async function insertAnswer(req, res) {
-  const { nombre, email, title, momentoRespuesta, answers } = req.body.answer;
-  const { idEvento } = req.body;
-
-  const answer = {
-    nombre: nombre || "",
-    email: email || "",
-    momentoRespuesta: momentoRespuesta || "",
-    answers: answers || [],
-  };
-
   try {
+    const { nombre, email, title, momentoRespuesta, answers } = req.body.answer;
+    const { idEvento } = req.body;
+
+    const answer = {
+      nombre: nombre || "",
+      email: email || "",
+      momentoRespuesta: momentoRespuesta || "",
+      answers: answers || [],
+    };
+
     const result = await insertAnswerDB(idEvento, answer);
-    const email = await sendEmailToAddress(
+    await sendEmailToAddress(
       idEvento,
       answer,
       answer.email,

@@ -20,7 +20,6 @@ export async function insertEventDB(event) {
       return { error: "Event already exists" };
     } else {
       const docRef = await addDoc(collection(db, "events"), newEvent);
-      console.log("New event written with ID: ", docRef.id);
 
       return {
         msg: "Nuevo evento insertado",
@@ -40,7 +39,6 @@ export async function existingEventByID(eventID) {
 
   for (const doc of querySnapshot.docs) {
     if (doc.id === eventID) {
-      console.log("Document found with ID: ", doc.id);
       return doc.id;
     }
   }
@@ -54,7 +52,6 @@ export async function getEventID(eventName) {
 
   for (const doc of querySnapshot.docs) {
     if (doc.data().title === eventName) {
-      console.log("Document found with ID: ", doc.id);
       return doc.id;
     }
   }
@@ -71,7 +68,6 @@ export async function getEventByID(eventID) {
   let eventData = null;
   for (const doc of querySnapshot.docs) {
     if (doc.id === idEvento) {
-      console.log("Document found with ID: ", doc.id);
       eventData = doc.data();
       break;
     }
@@ -94,7 +90,6 @@ export async function getEventIDByURL(url) {
 
   for (const doc of querySnapshot.docs) {
     if (doc.data().url === url) {
-      console.log("Document found with URL: ", doc.id);
       return doc.id;
     }
   }
