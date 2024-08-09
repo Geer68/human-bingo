@@ -1,8 +1,17 @@
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 export async function selectQuestions(eventData) {
   const { size, randomQuestions, sponsorQuestions } = eventData;
   const totalQuestionsSize = size * size;
 
   let selectedQuestions = [...sponsorQuestions];
+
+  shuffleArray(randomQuestions);
 
   const additionalQuestionsNeeded =
     totalQuestionsSize - selectedQuestions.length;
@@ -16,6 +25,8 @@ export async function selectQuestions(eventData) {
 
     selectedQuestions = [...selectedQuestions, ...randomQuestionsSelected];
   }
+
+  shuffleArray(selectedQuestions);
 
   return selectedQuestions;
 }
