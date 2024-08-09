@@ -3,7 +3,7 @@ import { fromEnv } from "@aws-sdk/credential-providers";
 
 const REGION = "us-east-2";
 
-export const sesClient = new SESClient({
+const sesClient = new SESClient({
   region: "us-east-2",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
